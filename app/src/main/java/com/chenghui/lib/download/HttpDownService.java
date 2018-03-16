@@ -123,7 +123,7 @@ public class HttpDownService extends Service {
     private Uri getUriForFile(File file) {
         Uri fileUri = null;
         if (Build.VERSION.SDK_INT >= 24) {
-            fileUri = FileProvider.getUriForFile(this.getApplicationContext(), "com.chenghui.lib.download.provider", file);
+            fileUri = FileProvider.getUriForFile(this.getApplicationContext(), this.getPackageName() + ".provider", file);
         } else {
             fileUri = Uri.fromFile(file);
         }
