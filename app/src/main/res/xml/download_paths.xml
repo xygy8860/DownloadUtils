@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <!--<external-path />标签指定的是SD卡的,如果选择SD卡外面的图片就报错崩溃.-->
+        <!--<external-path path="" name="jdid_files" />-->
+
+        <!--既可以访问sd卡的图片又可以访问sd卡外的图片-->
+        <root-path path="." name="download_files" />
+    </paths>
+</resources>
