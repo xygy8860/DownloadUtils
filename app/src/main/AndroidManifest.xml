@@ -3,6 +3,7 @@
     package="com.chenghui.lib.download">
 
     <application>
+
         <service android:name=".HttpDownService" />
 
         <provider

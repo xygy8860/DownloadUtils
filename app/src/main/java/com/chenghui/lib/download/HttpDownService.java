@@ -72,7 +72,7 @@ public class HttpDownService extends Service {
                     //禁止滑动删除
                     builder.setOngoing(false);
                     builder.setShowWhen(true);
-                    builder.setChannelId("china");
+                    //builder.setChannelId("china");
                 }
 
                 builder.setContentTitle(entity.name.replace(".apk", ""));
