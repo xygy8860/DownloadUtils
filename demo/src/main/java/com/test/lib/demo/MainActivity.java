@@ -63,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
+                    public void onProgress(int progress, long total) {
+                        super.onProgress(progress, total);
+
+                        Toast.makeText(getApplicationContext(), "下载进度" + progress, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
                     public void onResponse(File response) {
                         Toast.makeText(getApplicationContext(), "下载完成" + response.getAbsolutePath(), Toast.LENGTH_LONG).show();
                     }
