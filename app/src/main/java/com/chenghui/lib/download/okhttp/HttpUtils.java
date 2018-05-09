@@ -9,10 +9,12 @@ import com.chenghui.lib.download.entity.EntityFile;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
+import okhttp3.Response;
 
 
 /**
@@ -37,8 +39,75 @@ public class HttpUtils {
     public static boolean isDownload = false;
 
     private HttpUtils(Context context) {
-
     }
+
+
+    /**
+     * 异步线程
+     * 通过 get 方式获取 String
+     *
+     * @param url 网络地址
+     * @return 下载的String文件
+     */
+    public static String requestGetThread(String url) {
+        return requestGetThread(url, null, null);
+    }
+
+    public static String requestGetThread(String url, Object tag) {
+        return requestGetThread(url, tag, null);
+    }
+
+    public static String requestGetThread(String url, Map<String, String> params) {
+        return requestGetThread(url, null, params);
+    }
+
+    public static String requestGetThread(String url, Object tag, Map<String, String> params) {
+        return requestGetThread(url, tag, params, null);
+    }
+
+    public static String requestGetThread(String url, Object tag, Map<String, String> params, Map<String, String> headerMap) {
+        try {
+            RequestUtil requestUtil = new RequestUtil(METHOD_GET, tag, url, params, headerMap, null);
+            Response response = requestUtil.executeThread();
+            return response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 异步线程
+     * 通过 Post 方式 获取String
+     *
+     * @param url    网络地址
+     * @param params 参数
+     * @return 下载的String文件
+     */
+    public static String requestPostThread(String url, Map<String, String> params) {
+        return requestPostThread(url, null, params, null);
+    }
+
+    public static String requestPostThread(String url, Object tag, Map<String, String> params) {
+        return requestPostThread(url, tag, params, null);
+    }
+
+    public static String requestPostThread(String url, Map<String, String> params, Map<String, String> headerMap) {
+        return requestPostThread(url, null, params, headerMap);
+    }
+
+    public static String requestPostThread(String url, Object tag, Map<String, String> paramsMap, Map<String, String> headerMap) {
+        try {
+            RequestUtil requestUtil = new RequestUtil(METHOD_POST, tag, url, paramsMap, headerMap, null);
+            Response response = requestUtil.executeThread();
+            return response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     /**
      * 通过 get 方式获取 String

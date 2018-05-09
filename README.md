@@ -34,6 +34,14 @@ Step 2. Add the dependency
 1.普通Get
 -------
 
+子线程使用，可直接获取结果：
+
+````
+String response = HttpUtils.requestGetThread(url);
+````
+
+
+主线程使用，需要回调：
 ````
 HttpUtils.requestGet(url, new CallBackUtil.CallBackString() {
                     @Override
@@ -50,8 +58,21 @@ HttpUtils.requestGet(url, new CallBackUtil.CallBackString() {
 2.普通 Post
 ---
 
+子线程使用，可直接获取结果：
+
 ````
-HttpUtils.requestPost(string_url, null, new CallBackUtil.CallBackString() {
+Map<String,String> params = new HashMap<>();
+params.put("key","v");
+String response = HttpUtils.requestPostThread(url, params);
+````
+
+
+主线程使用，需要回调：
+
+````
+Map<String,String> params = new HashMap<>();
+params.put("key","v");
+HttpUtils.requestPost(url, params, new CallBackUtil.CallBackString() {
                     @Override
                     public void onFailure(Call call, Exception e) {
                     }
@@ -67,7 +88,7 @@ HttpUtils.requestPost(string_url, null, new CallBackUtil.CallBackString() {
 ------
 
 ````
-HttpUtils.downloadFile(apk_url, new CallBackUtil.CallBackFile(SDCardRoot, "demo.apk") {
+HttpUtils.downloadFile(url, new CallBackUtil.CallBackFile(SDCardRoot, "demo.apk") {
                     @Override
                     public void onFailure(Call call, Exception e) {
                     }
@@ -87,7 +108,8 @@ HttpUtils.downloadFile(apk_url, new CallBackUtil.CallBackFile(SDCardRoot, "demo.
 --------------
 
 ````
-HttpUtils.downloadFileNotify(context, url, "通知栏显示名称", R.mipmap.ic_launcher, new CallBackUtil.CallBackFile(SDCardRoot, "demo.apk") {
+HttpUtils.downloadFileNotify(context, url, "通知栏显示名称", R.mipmap.ic_launcher,
+        new CallBackUtil.CallBackFile(SDCardRoot, "demo.apk") {
                     @Override
                     public void onFailure(Call call, Exception e) {
                     }

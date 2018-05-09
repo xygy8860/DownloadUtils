@@ -271,8 +271,12 @@ class RequestUtil {
                     mCallBack.onSeccess(call, response);
                 }
             }
-
         });
+    }
+
+    Response executeThread() throws IOException {
+        Call call = OkHttpClientUtil.getInstance().newCall(mOkHttpRequest);
+        return call.execute();
     }
 
 
