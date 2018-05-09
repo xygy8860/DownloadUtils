@@ -1,15 +1,19 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+
     defaultConfig {
-        //applicationId "com.chenghui.lib.download"
-        minSdkVersion 14
+        applicationId "com.test.lib.demo"
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -17,19 +21,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.4.0'
+    //compile 'com.android.support.constraint:constraint-layout:1.1.0'
 
-    compile 'org.greenrobot:eventbus:3.0.0'
-    //compile 'com.blankj:utilcode:1.13.4'
-    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile project(':app')
 }

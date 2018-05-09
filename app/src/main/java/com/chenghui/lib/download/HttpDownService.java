@@ -16,6 +16,8 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 
+import com.chenghui.lib.download.entity.EntityFile;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -92,6 +94,10 @@ public class HttpDownService extends Service {
                     buttonIntent.putExtra("id", entity.id);
                     PendingIntent intent = PendingIntent.getBroadcast(this, 0x11, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     builder.setContentIntent(intent);
+
+                    if (entity.fileName.endsWith(".apk")) {
+                        installApk(entity.fileName);
+                    }
                 }
 
                 Notification notification = builder.build();
@@ -103,7 +109,7 @@ public class HttpDownService extends Service {
     }
 
     private void installApk(String name) {
-        File file = new File(FileUtils.SDCardRoot + FileUtils.FILE_DIRS_NAME + File.separator + name);
+        File file = new File(name);
         Intent intent = new Intent();
         intent.setAction("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");

@@ -1,4 +1,4 @@
-package com.chenghui.lib.download;
+package com.chenghui.lib.download.entity;
 
 /**
  * Created by cdsunqinwei on 2018/3/15.
