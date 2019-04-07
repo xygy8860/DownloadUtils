@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static String SDCardRoot = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
 
-    public static String apk_url = "https://jiaxiao.duapp.com/image/novel.apk";
-    public static String string_url = "http://cgi.im.qq.com/cgi-bin/cgi_svrtime";
+    public static String apk_url = "";
+    public static String string_url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

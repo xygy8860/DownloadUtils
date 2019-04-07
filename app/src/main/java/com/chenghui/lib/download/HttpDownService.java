@@ -1,6 +1,7 @@
 package com.chenghui.lib.download;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -12,8 +13,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.chenghui.lib.download.entity.EntityFile;
@@ -35,6 +36,9 @@ public class HttpDownService extends Service {
     private NotificationManager manger;
     private NotificationCompat.Builder builder;
 
+    private final String channelID = "study_down_app";
+    private final String channelName = "study";
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -45,6 +49,16 @@ public class HttpDownService extends Service {
         super.onCreate();
         EventBus.getDefault().register(this);
         manger = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        // 适配 android 8.0
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.enableLights(false); //是否在桌面icon右上角展示小红点
+            channel.setShowBadge(false); //是否在久按桌面图标时显示此渠道的通知
+            channel.enableVibration(false);
+            channel.setSound(null, null);
+            manger.createNotificationChannel(channel);
+        }
     }
 
     @Override
@@ -74,7 +88,7 @@ public class HttpDownService extends Service {
                     //禁止滑动删除
                     builder.setOngoing(false);
                     builder.setShowWhen(true);
-                    //builder.setChannelId("china");
+                    builder.setChannelId(channelID);
                 }
 
                 builder.setContentTitle(entity.name.replace(".apk", ""));

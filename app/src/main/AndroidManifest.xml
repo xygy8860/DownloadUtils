@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chenghui.lib.download">
-
+    
     <application>
-
+        
         <service android:name=".HttpDownService" />
-
+        
+        <!-- 解决第三方库FileProvider冲突的问题 -->
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name=".DownLoadFileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -16,10 +17,13 @@
                 android:resource="@xml/download_paths" />
         </provider>
     </application>
-
+    
     <!-- 网络 -->
     <uses-permission android:name="android.permission.INTERNET" /><!-- SD卡写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!-- SD卡读权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /><!-- 文件读写操作 -->
-
+    
+    <!-- targetSdkVersion >= 26 时需要配置此权限，否则无法进行安装app的动作 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    
 </manifest>
